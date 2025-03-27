@@ -24,18 +24,29 @@ export function renderLegacy(doc, adId) {
   let w = window;
   for (let i = 0; i < 10; i++) {
     w = w.parent;
-    if (w.$$PREBID_GLOBAL$$) {
-      try {
-        w.$$PREBID_GLOBAL$$.renderAd(doc, adId);
-        found = true;
-        break;
-      } catch (e) {
-        continue;
+
+    const possibleGlobals = [
+      w.$$PREBID_GLOBAL$$,
+      w.pp_pbjs  // <-- hier dein zusätzlicher Namespace
+    ];
+
+    for (const global of possibleGlobals) {
+      if (global && typeof global.renderAd === 'function') {
+        try {
+          global.renderAd(doc, adId);
+          found = true;
+          break;
+        } catch (e) {
+          continue;
+        }
       }
     }
+
+    if (found) break;
   }
+
   if (!found) {
-    console.error("Unable to locate $$PREBID_GLOBAL$$.renderAd function!");
+    console.error("Unable to locate a renderAd function in $$PREBID_GLOBAL$$ or pp_pbjs!");
   }
 }
 
