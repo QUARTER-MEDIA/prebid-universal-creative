@@ -1,6 +1,19 @@
 /* v1.16.0
 Updated : 2023-10-12
 DEPRECATED, please use creative based on hb_format targeting */
+
+(function(n) {
+    var pbjsNamespace = typeof pp_pbjs !== 'undefined' ? pp_pbjs : (typeof pbjs !== 'undefined' ? pbjs : null);
+
+    if (!pbjsNamespace) {
+        console.error('Neither pp_pbjs nor pbjs is defined. Cannot proceed with ad rendering.');
+        return;
+    }
+
+
+/* v1.16.0
+Updated : 2023-10-12
+DEPRECATED, please use creative based on hb_format targeting */
 ! function(n) {
     var r = {};
 
@@ -171,7 +184,7 @@ DEPRECATED, please use creative based on hb_format targeting */
             n = t;
         for (; !e;) {
             try {
-        if (n.pp_pbjs || n.pbjs) {
+                if (n.pbjsNamespace) {
                     e = !0;
                     break
                 }
@@ -202,13 +215,13 @@ DEPRECATED, please use creative based on hb_format targeting */
         var n = Object(r.h)(e);
         Object(o.a)(window) ? function(t, e) {
             for (var n = !1, r = window, o = 0; o < 10; o++)
-                if ((r = r.parent).pbjs) try {
-                    n = !0, r.pbjs.renderAd(t, e);
+                if ((r = r.parent).pbjsNamespace) try {
+                    n = !0, r.pbjsNamespace.renderAd(t, e);
                     break
                 } catch (t) {
                     continue
                 }
-            n || console.error("Unable to locate pbjs.renderAd function!")
+            n || console.error("Unable to locate pbjsNamespace.renderAd function!")
         }(t, n.adId) : function(f, p) {
             var t = 2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : "",
                 e = 3 < arguments.length ? arguments[3] : void 0,
