@@ -171,7 +171,7 @@ DEPRECATED, please use creative based on hb_format targeting */
             n = t;
         for (; !e;) {
             try {
-                if (n.pbjs) {
+        if (n.pp_pbjs || n.pbjs) {
                     e = !0;
                     break
                 }
